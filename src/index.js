@@ -9,7 +9,27 @@ dotenv.config({
 
 // Approach 2
 connectDB()
+.then(
+    ()=>{
 
+        // for app when there is some errror
+        app.on("error" , (error)=>{
+            console.log("ERRR",error);
+            throw error
+        })
+
+
+        // For listing of app
+        const port = process.env.PORT;
+        app.listen(port||8000 , () => {
+            console.log(`Server is running at Port ${port}`);
+        })
+
+    }
+)
+.catch((err) => {
+    console.log("Mongodb connection FAILED",err);
+})
 
 
 
